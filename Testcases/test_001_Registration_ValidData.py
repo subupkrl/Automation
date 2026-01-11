@@ -1,20 +1,33 @@
 # from Base import InitiateDriver
 from Base.InitiateDriver import startBrowser,closeBrowser
 from Library.ConfigReader import readElements
+from Pages.RegistrationPage import RegistrationData
+import pytest
 
-def test_ValidateRegistration():
+def dataGenerator():
+    listData=[
+        ['Ram','Sharma','Dec','3','2003','ram@gmail.com','12345678','Male'],
+        ['Shyam','Karki','Sep','10','1999','shyam@gmail.com','123456789','Male'],
+        ['Sita','Pandey','Oct','20','2000','sita@gmail.com','1234567890','Female']
+        ]
+    return listData
+
+
+@pytest.mark.parametrize('data',dataGenerator())
+def test_ValidateRegistration(data):
     # driver = InitiateDriver.startBrowser()
     driver = startBrowser()
-    
-    driver.find_element('name',readElements("Registration","fname")).send_keys("Hello")
-    driver.find_element('name',readElements("Registration","lname")).send_keys("Sharma")
-    driver.find_element('name',readElements("Registration","bd_mon")).send_keys("Dec")
-    driver.find_element('name',readElements("Registration","bd_day")).send_keys("3")
-    driver.find_element('name',readElements("Registration","bd_year")).send_keys("2002")
-    driver.find_element('xpath',readElements("Registration","a")).click()
-    driver.find_element('name',readElements("Registration","email")).send_keys("subu@gmail.com")
-    driver.find_element('name',readElements("Registration","pwd")).send_keys("subu@123")
-    driver.find_element('xpath',readElements("Registration","submit")).click()
+    register=RegistrationData(driver)
+    register.enterFirstName(data[0])
+    register.enterLastName(data[1])
+    register.birthdayMonth(data[2])
+    register.birthdayDay(data[3])
+    register.birthdayYear(data[4])
+    register.gender(data[7])
+    register.enterEmail(data[5])
+    register.enterPassword(data[6])
+
+    register.submit()
     
     closeBrowser()
     # InitiateDriver.closeBrowser()
