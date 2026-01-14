@@ -1,7 +1,19 @@
 import openpyxl
+import os
 
 def dataGenerator():
-    workbook=openpyxl.load_workbook("../DataGenerator/data/registerdata.xlsx")
+
+
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    excel_path = os.path.join(
+        BASE_DIR,
+        "DataGenerator",
+        "data",
+        "registerdata.xlsx"
+    )
+
+    workbook = openpyxl.load_workbook(excel_path)
     sh=workbook['Sheet1']
     row=sh.max_row
     li=[]
