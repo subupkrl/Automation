@@ -1,6 +1,6 @@
 # from Base import InitiateDriver
 from Base.InitiateDriver import startBrowser,closeBrowser
-from Library.ConfigReader import readElements
+from Library.ConfigReader import configRead
 from Pages.RegistrationPage import RegistrationData
 import pytest
 from DataGenerator.DataGen import dataGenerator
